@@ -9,7 +9,7 @@ node {
     // Run the Python script
     stage('Run Python Script') {
         steps {
-            sh 'python.py' // Replace 'your_script.py' with the actual script name
+            sh 'python python.py' // Replace 'your_script.py' with the actual script name
         }
     }
 }
