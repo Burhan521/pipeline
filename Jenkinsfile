@@ -1,15 +1,23 @@
-node {
-    // Define the GitHub repository URL and credentials (if needed)
-    def gitRepo = 'https://github.com/Burhan521/pipeline.git'
-    def gitCredentials = 'your-git-credentials-id' // Optional
-
-    // Checkout the code from the GitHub repository
-    checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'CloneOption', depth: 1, noTags: true, reference: '', shallow: true], [$class: 'RelativeTargetDirectory', relativeTargetDir: '']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: gitCredentials, url: gitRepo]]])
-
-    // Run the Python script
-    stage('Run Python Script') {
-        steps {
-            sh 'python.py' // Replace 'your_script.py' with the actual script name
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the GitHub repository
+                script {
+                    def gitURL = 'https://github.com/Burhan521/pipeline.git'
+                    def gitCredentials = credentials('your-github-credentials-id') // Configure GitHub credentials in Jenkins
+                    checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: gitURL, credentialsId: gitCredentials]]])
+                }
+            }
+        }
+        
+        stage('Run Python Script') {
+            steps {
+                // Run your Python script
+                sh 'python python.py' // Replace 'your_script.py' with the actual Python script filename
+            }
         }
     }
 }
