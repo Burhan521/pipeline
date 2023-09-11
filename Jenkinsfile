@@ -4,12 +4,12 @@ node {
     def gitCredentials = 'your-git-credentials-id' // Optional
 
     // Checkout the code from the GitHub repository
-    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'CloneOption', depth: 1, noTags: true, reference: '', shallow: true], [$class: 'RelativeTargetDirectory', relativeTargetDir: '']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: gitCredentials, url: gitRepo]]])
+    checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'CloneOption', depth: 1, noTags: true, reference: '', shallow: true], [$class: 'RelativeTargetDirectory', relativeTargetDir: '']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: gitCredentials, url: gitRepo]]])
 
     // Run the Python script
     stage('Run Python Script') {
         steps {
-            sh 'python python.py' // Replace 'your_script.py' with the actual script name
+            sh 'python.py' // Replace 'your_script.py' with the actual script name
         }
     }
 }
