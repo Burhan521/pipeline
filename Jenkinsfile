@@ -5,7 +5,7 @@ pipeline {
         stage('Run Python Script') {
             steps {
                 // Run your Python script
-                sh 'python3 python.py' // Replace 'your_script.py' with the actual Python script filename
+                sh 'aws s3 ls' // Replace 'your_script.py' with the actual Python script filename
             }
         }
     }
